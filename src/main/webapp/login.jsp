@@ -19,11 +19,11 @@
           <form action="<%=contextPath%>/login" method="post">
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control" name="username">
+              <input type="email" class="form-control" name="username" value="{username}">
             </div>
             <div class="form-group">
               <label>Mật khẩu</label>
-              <input type="password" class="form-control" name="password">
+              <input type="password" class="form-control" name="password" value="{password}">
             </div>
             <div>
                 <input type="checkbox" name="save">

@@ -1,14 +1,12 @@
 package controller;
 
+import com.mysql.cj.Session;
 import config.MysqlConfig;
 import model.UserModel;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
@@ -23,34 +21,48 @@ public class LoginController extends HttpServlet {
 //        Cookie cookie = new Cookie("username", "nguyenvana");
 //        //Yeu cau tao cookie tren may
 //        resp.addCookie(cookie);
+//        Cookie[] cookies = req.getCookies();
+//        for (Cookie item : cookies) {
+//            if (item.getName().equals("username")){
+//                System.out.println("Kiem tra: " + item.getValue());
+//            }
+//        }
 
-        Cookie[] cookies = req.getCookies();
-        for (Cookie item : cookies) {
-            if (item.getName().equals("username")){
-                System.out.println("Kiem tra: " + item.getValue());
-            }
-        }
-        req.getRequestDispatcher("login.jsp").forward(req,resp);
+        HttpSession session = req.getSession();
+
+        Object username = session.getAttribute("username");
+        Object password = session.getAttribute("password");
+        System.out.println("session: " + username );
+        System.out.println("session: " + password );
+        System.out.println("session: " + session.getId() );
+//        String username = "";
+//        String password = "";
+//        if(session.getAttribute("username").equals(username)){
+//            username =
+//        }
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //Bước 1: Lấy tham số username và password người dùng nhập
-        String email= req.getParameter("username");
-        String password= req.getParameter("password");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String save = req.getParameter("save");
+
         Connection connection = null;
         //Bước 2: Viết câu query
         //? : tham số sẽ được truyền ở JDBC
-        String sql= "SELECT *FROM users u where u.email = ? AND u.password = ?;";
+        String sql = "SELECT *FROM users u where u.email = ? AND u.password = ?;";
 
         //Bước 3: Đưa câu query vào Statement để chuẩn bị thực thi
         try {
             connection = MysqlConfig.getConnection();
             PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
             //Truyền tham số cho dấu chấm hỏi trong câu query
-            statement.setString(1,email);
-            statement.setString(2,password);
+            statement.setString(1, username);
+            statement.setString(2, password);
 
             //Bước 4: Thực thi câu query
             //statement có 2 loại thực thi
@@ -60,7 +72,7 @@ public class LoginController extends HttpServlet {
             List<UserModel> list = new ArrayList<>();
 
             //Bước 5: duyệt dữ liệu trong ResultSet và lưu vào trong UserModel
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 //Duyệt qua từng dòng dữ liệu
                 UserModel userModel = new UserModel();
                 //Lấy giá trị của cột chỉ định
@@ -71,20 +83,29 @@ public class LoginController extends HttpServlet {
 
                 list.add(userModel);
             }
-            boolean isSuccess = list.size()>0;
+            boolean isSuccess = list.size() > 0;
+
+            if (save != null && isSuccess) {
+                HttpSession session = req.getSession();
+
+                session.setAttribute("username", username);
+                session.setAttribute("password", password);
+
+            }
+
             PrintWriter writer = resp.getWriter();
             writer.println(isSuccess ? "Login success!" : "Login Fail");
             writer.close();
-            System.out.println("Kiem tra" + list.size());
 
         } catch (SQLException e) {
             System.out.println("Lỗi thực thi login");
         } finally {
-            if(connection!=null) {
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Lỗi đóng kết nối login" + e.getMessage());;
+                    System.out.println("Lỗi đóng kết nối login" + e.getMessage());
+                    ;
                 }
             }
         }
