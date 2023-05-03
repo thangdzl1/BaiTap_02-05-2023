@@ -29,17 +29,18 @@ public class LoginController extends HttpServlet {
 //        }
 
         HttpSession session = req.getSession();
+        Object username = null;
+        Object password = null;
+        if(session.getId().equals(session.getId())){
+            username = session.getAttribute("username");
+            password = session.getAttribute("password");
+        }
+        req.setAttribute("username",username);
+        req.setAttribute("password",password);
 
-        Object username = session.getAttribute("username");
-        Object password = session.getAttribute("password");
         System.out.println("session: " + username );
         System.out.println("session: " + password );
-        System.out.println("session: " + session.getId() );
-//        String username = "";
-//        String password = "";
-//        if(session.getAttribute("username").equals(username)){
-//            username =
-//        }
+
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 

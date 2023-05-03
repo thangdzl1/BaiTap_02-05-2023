@@ -1,3 +1,5 @@
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.UserModel" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -18,12 +20,12 @@
         <% String contextPath = request.getContextPath(); %>
           <form action="<%=contextPath%>/login" method="post">
             <div class="form-group">
-              <label>Email</label>
-              <input type="email" class="form-control" name="username" value="{username}">
+              <label>Email </label>
+              <input type="email" class="form-control" name="username" value="${username}">
             </div>
             <div class="form-group">
               <label>Mật khẩu</label>
-              <input type="password" class="form-control" name="password" value="{password}">
+              <input type="password" class="form-control" name="password" value="${password}">
             </div>
             <div>
                 <input type="checkbox" name="save">
