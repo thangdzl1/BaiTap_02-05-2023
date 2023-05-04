@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 
 //urlPattern: Khi người dùng gọi link được qui định trong urlPattern thì url sẽ được kích hoạt
-//@WebServlet(urlPatterns = {"/dashboard","/login"})
+//@WebServlet(urlPatterns = {"/dashboard"})
 public class AuthFilter implements Filter {
     LoginService loginService = new LoginService();
     @Override
