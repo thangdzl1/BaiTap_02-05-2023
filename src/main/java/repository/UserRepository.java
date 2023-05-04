@@ -45,4 +45,35 @@ public class UserRepository {
             }
         }return userModelList;
     }
+    public List<UserModel> findAll(){
+        Connection connection = null;
+        List<UserModel> userModelList = new ArrayList<>();
+        try {
+            String sql = "SELECT *FROM users u ";
+            PreparedStatement statement = MysqlConfig.getConnection().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                //Duyệt qua từng dòng dữ liệu
+                UserModel userModel = new UserModel();
+                //Lấy giá trị của cột chỉ định lưu vào đối tượng
+                userModel.setId(resultSet.getInt("id"));
+                userModel.setEmail(resultSet.getString("email"));
+                userModel.setFullname(resultSet.getString("fullname"));
+                userModel.setRole_id(resultSet.getInt("role_id"));
+
+                userModelList.add(userModel);
+            }
+        }catch (Exception e){
+            System.out.println("Error findAll : " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Lỗi đóng kết nối findAll : " + e.getMessage());
+                }
+            }
+        }return userModelList;
+
+    }
 }
