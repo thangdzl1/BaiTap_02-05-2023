@@ -153,11 +153,11 @@
                                     <tbody>
                                     <c:forEach var="item" items="${listUsers}">
                                         <tr>
-                                                <td>${item.getId()}</td>
-                                                <td>${item.getEmail()}</td>
-                                                <td>${item.getFullname()}</td>
-                                                <td>${item.getAvatar()}</td>
-                                                <td></td>
+                                            <td>${item.getId()}</td>
+                                            <td>${item.getEmail()}</td>
+                                            <td>${item.getFullname()}</td>
+                                            <td>${item.getAvatar()}</td>
+                                            <td></td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a href="#" class="btn btn-sm btn-danger">Xóa</a>

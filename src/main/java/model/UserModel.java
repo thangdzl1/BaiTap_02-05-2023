@@ -4,7 +4,9 @@ public class UserModel {
     private int id;
     private String email;
     private String password;
-
+    private String fullname;
+    private String avatar;
+    private int role_id;
     public String getEmail() {
         return email;
     }
@@ -12,11 +14,6 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    private String fullname;
-    private String avatar;
-    private int role_id;
-
     public int getId() {
         return id;
     }

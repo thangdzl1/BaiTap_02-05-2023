@@ -1,8 +1,7 @@
 package controller;
 
 import model.UserModel;
-import repository.UserRepository;
-import service.DashboardService;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "dashboardController", urlPatterns = {"/dashboard"})
-public class DashboardController extends HttpServlet {
-    private DashboardService dashboardService = new DashboardService();
+@WebServlet(name = "user-table", urlPatterns = {"/user-table"})
+public class UserTableController extends HttpServlet {
+    private UserService userService = new UserService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<UserModel> list = dashboardService.getAllUser();
-        req.setAttribute("listUser",list);
+        List<UserModel> list = userService.getAllUser();
+        System.out.println("list: " + list.get(0).getEmail());
+        req.setAttribute("listUsers",list);
         req.getRequestDispatcher("user-table.jsp").forward(req, resp);
     }
 
