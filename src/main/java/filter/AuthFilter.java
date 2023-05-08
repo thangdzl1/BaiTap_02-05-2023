@@ -13,6 +13,7 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         //Nơi qui định rule
+
         System.out.println("Filter đã được kích hoạt!");
         //Cho phép đi vào link mà người dùng request
         filterChain.doFilter(servletRequest,servletResponse);

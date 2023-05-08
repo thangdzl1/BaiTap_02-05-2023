@@ -48,7 +48,7 @@ public class LoginController extends HttpServlet {
         boolean isSuccess = loginService.checkLogin(username, password);
         if (isSuccess) {
             String contextPath = req.getContextPath();
-            resp.sendRedirect(contextPath + "/dashboard");
+            resp.sendRedirect(contextPath + "/user-table");
             if (save != null){
                 HttpSession session = req.getSession();
                 session.setAttribute("username", username);
