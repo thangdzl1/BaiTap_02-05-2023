@@ -17,7 +17,7 @@
     <div class="col-md-5 m-auto mt-5">
       <h3 class="text-center">ĐĂNG NHẬP HỆ THỐNG</h3>
       <div class="p-4 border mt-4">
-        <% String contextPath = request.getContextPath(); %>
+        <% String contextPath = request.getContextPath();%>
           <form action="<%=contextPath%>/login" method="post">
             <div class="form-group">
               <label>Email </label>

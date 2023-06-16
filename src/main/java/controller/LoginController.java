@@ -5,6 +5,7 @@ import config.MysqlConfig;
 import model.UserModel;
 import service.LoginService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -23,20 +24,22 @@ public class LoginController extends HttpServlet {
         //Tao object cookie
 //        Cookie cookie = new Cookie("username", "nguyenvana");
 //        //Yeu cau tao cookie tren may
-//        resp.addCookie(cookie);
-//        Cookie[] cookies = req.getCookies();
-//        for (Cookie item : cookies) {
-//            if (item.getName().equals("username")){
-//                System.out.println("Kiem tra: " + item.getValue());
-//            }
-//        }
+        Cookie[] cookies = req.getCookies();
+        for (Cookie item : cookies) {
+            if (item.getName().equals("username")){
+                req.setAttribute("username",item.getValue());
+            }
+            if (item.getName().equals("password")){
+                req.setAttribute("password",item.getValue());
+            }
+        }
+//        HttpSession session = req.getSession();
+//        if(session.getAttribute("username")!=null){
+//            String contextPath = req.getContextPath();
+//            resp.sendRedirect(contextPath + "/user-table");
+//        }else
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
 
-        HttpSession session = req.getSession();
-        Object username = session.getAttribute("username");
-        Object password = session.getAttribute("password");
-        req.setAttribute("username", username);
-        req.setAttribute("password", password);
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
     @Override
@@ -48,16 +51,21 @@ public class LoginController extends HttpServlet {
         boolean isSuccess = loginService.checkLogin(username, password);
         if (isSuccess) {
             String contextPath = req.getContextPath();
-            resp.sendRedirect(contextPath + "/user-table");
             if (save != null){
-                HttpSession session = req.getSession();
-                session.setAttribute("username", username);
-                session.setAttribute("password", password);
+//                HttpSession session = req.getSession();
+//                session.setAttribute("username", username);
+//                session.setAttribute("password", password);
+                Cookie cUsername = new Cookie("username",username);resp.addCookie(cUsername);
+                Cookie cPassword = new Cookie("password",password);resp.addCookie(cPassword);
             }
+            resp.sendRedirect(contextPath + "/user-table");
         } else {
-            PrintWriter writer = resp.getWriter();
-            writer.println("Login Fail !");
-            writer.close();
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+//            String contextPath = req.getContextPath();
+//            resp.sendRedirect(contextPath +"/login");
+//            PrintWriter writer = resp.getWriter();
+//            writer.println("Login Fail !");
+//            writer.close();
         }
     }
 }

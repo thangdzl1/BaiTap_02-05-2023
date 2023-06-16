@@ -1,3 +1,7 @@
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.UserModel" %>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,18 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<c:url value = "/plugins/images/favicon.png"/>">
     <title>Pixel Admin</title>
     <!-- Bootstrap Core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value ="/bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet">
     <!-- Menu CSS -->
-    <link href="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="<c:url value ="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css"/>" rel="stylesheet">
     <!-- animation CSS -->
-    <link href="css/animate.css" rel="stylesheet">
+    <link href="<c:url value ="/css/animate.css" />" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="<c:url value = "/css/style.css" />" rel="stylesheet">
     <!-- color CSS -->
-    <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <link href="<c:url value ="/css/colors/blue-dark.css"/>" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,7 +39,7 @@
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top m-b-0">
-                <div class="navbar-header"> 
+                <div class="navbar-header">
                     <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
                         <i class="fa fa-bars"></i>
                     </a>
@@ -52,7 +56,7 @@
                     <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
                         <li>
                             <form role="search" class="app-search hidden-xs">
-                                <input type="text" placeholder="Search..." class="form-control"> 
+                                <input type="text" placeholder="Search..." class="form-control">
                                 <a href="">
                                     <i class="fa fa-search"></i>
                                 </a>
@@ -62,9 +66,9 @@
                     <ul class="nav navbar-top-links navbar-right pull-right">
                         <li>
                             <div class="dropdown">
-                                <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#"> 
+                                <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
                                     <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" />
-                                    <b class="hidden-xs">Cybersoft</b> 
+                                    <b class="hidden-xs">Cybersoft</b>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="profile.html">Thông tin cá nhân</a></li>
@@ -130,48 +134,46 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form action = "<c:url value="/user-table/adjust"/>" method="post" class="form-horizontal form-material">
+                                <div class="form-group">
+                                    <label class="col-md-12">User Id</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="User ID"
+                                               class="form-control form-control-line" name="userid"> </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Full Name</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Johnathan Doe"
-                                            class="form-control form-control-line"> </div>
+                                            class="form-control form-control-line" name="fullname"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
                                         <input type="email" placeholder="johnathan@admin.com"
-                                            class="form-control form-control-line" name="example-email"
+                                            class="form-control form-control-line" name="email"
                                             id="example-email"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Password</label>
                                     <div class="col-md-12">
-                                        <input type="password" value="password" class="form-control form-control-line">
+                                        <input type="password" name="password" placeholder="password" class="form-control form-control-line">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Phone No</label>
-                                    <div class="col-md-12">
-                                        <input type="text" placeholder="123 456 7890"
-                                            class="form-control form-control-line"> </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-12">Select Country</label>
+                                    <label class="col-sm-12">Select Role</label>
                                     <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
-                                            <option>London</option>
-                                            <option>India</option>
-                                            <option>Usa</option>
-                                            <option>Canada</option>
-                                            <option>Thailand</option>
+                                        <select name ="role" class="form-control form-control-line">
+                                            <c:forEach var="item" items = "${roleModelList}" >
+                                                <option value="${item.role_id}">${item.role_desc}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button type="submit" class="btn btn-success">Add User</button>
-                                        <a href="user-table.html" class="btn btn-primary">Quay lại</a>
+                                        <button type="submit" class="btn btn-success">Adjust User</button>
+                                        <a href="<c:url value="/user-table"/>" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>
@@ -188,17 +190,17 @@
     </div>
     <!-- /#wrapper -->
     <!-- jQuery -->
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<c:url value ="/plugins/bower_components/jquery/dist/jquery.min.js"/>"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<c:url value ="/bootstrap/dist/js/bootstrap.min.js"/>"></script>
     <!-- Menu Plugin JavaScript -->
-    <script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <script src="<c:url value ="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"/>"></script>
     <!--slimscroll JavaScript -->
-    <script src="js/jquery.slimscroll.js"></script>
+    <script src="<c:url value ="/js/jquery.slimscroll.js"/>"></script>
     <!--Wave Effects -->
-    <script src="js/waves.js"></script>
+    <script src="<c:url value="/js/waves.js"/>"></script>
     <!-- Custom Theme JavaScript -->
-    <script src="js/custom.min.js"></script>
+    <script src="<c:url value="/js/custom.min.js"/>"></script>
 </body>
 
 </html>

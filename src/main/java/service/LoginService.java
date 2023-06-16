@@ -3,7 +3,6 @@ package service;
 import model.UserModel;
 import repository.UserRepository;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class LoginService {
@@ -11,7 +10,7 @@ public class LoginService {
     private UserRepository userRepository = new UserRepository();
 
     public boolean checkLogin(String email, String password) {
-        List<UserModel> list = userRepository.findByEmailAndPassword(email, password);
+        List<UserModel> list = userRepository.findUserByEmailAndPassword(email, password);
         return list.size() > 0;
     }
 }

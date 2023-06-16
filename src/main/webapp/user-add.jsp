@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.UserModel" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,20 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<c:url value ="/plugins/images/favicon.png"/>">
     <title>Pixel Admin</title>
     <!-- Bootstrap Core CSS -->
-    <link href="<c:url value = "bootstrap/dist/css/bootstrap.min.css"/>" rel="stylesheet">
+    <link href=<c:url value="/bootstrap/dist/css/bootstrap.min.css"/> rel="stylesheet">
     <!-- Menu CSS -->
-    <link href="<c:url value = "plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css"/>" rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value = "https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>">
+    <link href=<c:url value = "/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" /> rel="stylesheet">
     <!-- animation CSS -->
-    <link href="<c:url value = "css/animate.css"/>" rel="stylesheet">
+    <link href=<c:url value="/css/animate.css"/> rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="<c:url value = "css/style.css"/>" rel="stylesheet">
+    <link href=<c:url value="/css/style.css"/> rel="stylesheet">
     <!-- color CSS -->
-    <link href="<c:url value = "css/colors/blue-dark.css"/>" id="theme" rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value = "./css/custom.css"/>">
+    <link href=<c:url value="/css/colors/blue-dark.css"/> id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -42,17 +41,16 @@
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top m-b-0">
         <div class="navbar-header">
-            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse"
-               data-target=".navbar-collapse">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="fa fa-bars"></i>
             </a>
             <div class="top-left-part">
                 <a class="logo" href="index.html">
                     <b>
-                        <img src="plugins/images/pixeladmin-logo.png" alt="home"/>
+                        <img src="plugins/images/pixeladmin-logo.png" alt="home" />
                     </b>
                     <span class="hidden-xs">
-                                <img src="plugins/images/pixeladmin-text.png" alt="home"/>
+                                <img src="plugins/images/pixeladmin-text.png" alt="home" />
                             </span>
                 </a>
             </div>
@@ -70,7 +68,7 @@
                 <li>
                     <div class="dropdown">
                         <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle"/>
+                            <img src="plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle" />
                             <b class="hidden-xs">Cybersoft</b>
                         </a>
                         <ul class="dropdown-menu">
@@ -96,7 +94,7 @@
                                                                  aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="<c:url value="/user-table"/>" class="waves-effect"><i class="fa fa-user fa-fw"
+                    <a href="user-table.html" class="waves-effect"><i class="fa fa-user fa-fw"
                                                                       aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                 </li>
                 <li>
@@ -109,8 +107,7 @@
                 </li>
                 <li>
                     <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
-                                                                aria-hidden="true"></i><span
-                            class="hide-menu">Công việc</span></a>
+                                                                aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                 </li>
                 <li>
                     <a href="blank.html" class="waves-effect"><i class="fa fa-columns fa-fw"
@@ -118,8 +115,7 @@
                 </li>
                 <li>
                     <a href="404.html" class="waves-effect"><i class="fa fa-info-circle fa-fw"
-                                                               aria-hidden="true"></i><span
-                            class="hide-menu">Error 404</span></a>
+                                                               aria-hidden="true"></i><span class="hide-menu">Error 404</span></a>
                 </li>
             </ul>
         </div>
@@ -130,79 +126,76 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Danh sách thành viên</h4>
+                    <h4 class="page-title">Thêm mới thành viên</h4>
                 </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12 text-right">
-                    <a href="<c:url value="/user-table/add"/>" class="btn btn-sm btn-success">Thêm mới</a>
-                </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /row -->
+            <!-- /.row -->
+            <!-- .row -->
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-md-2 col-12"></div>
+                <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <div class="table-responsive">
-                            <table class="table" id="example">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Email</th>
-                                    <th>Fullname</th>
-                                    <th>Avatar</th>
-                                    <th>Role</th>
-                                    <th>#</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="item" items="${listUsers}">
-                                    <tr>
-                                        <td>${item.getId()}</td>
-                                        <td>${item.getEmail()}</td>
-                                        <td>${item.getFullname()}</td>
-                                        <td>${item.getAvatar()}</td>
-                                        <td>${listRole.get(item.getRole_id()-1).getRole_desc()}</td>
-                                        <td>
-                                            <a href="<c:url value="/user-table/adjust"/> " userid="${item.getId()}"
-                                                  class="btn btn-sm btn-primary btn-adjust-user">Sửa</a>
-                                            <span href="#" userid="${item.getId()}"
-                                                  class="btn btn-sm btn-danger btn-delete-user">Xóa</span>
-                                            <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                        <form action="<c:url value="/user-table/add"/> " method="post" class="form-horizontal form-material">
+                            <div class="form-group">
+                                <label class="col-md-12">Full Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Johnathan Doe" name="fullname"
+                                           class="form-control form-control-line">  </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-email" class="col-md-12">Email</label>
+                                <div class="col-md-12">
+                                    <input type="email" placeholder="johnathan@admin.com"
+                                           class="form-control form-control-line" name="email"
+                                           id="example-email"> </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Password</label>
+                                <div class="col-md-12">
+                                    <input type="password" value="password" class="form-control form-control-line" name = "password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-12">Select Country</label>
+                                <div class="col-sm-12">
+                                        <select name ="role" class="form-control form-control-line">
+                                            <c:forEach var="item" items = "${roleModelList}" >
+                                                <option value="${item.role_id}">${item.role_desc}</option>
+                                            </c:forEach>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success">Add User</button>
+                                    <a href="user-table.html" class="btn btn-primary">Quay lại</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <div class="col-md-2 col-12"></div>
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
-        <footer class="footer text-center"> 2018 &copy; myclass.com</footer>
+        <footer class="footer text-center"> 2018 &copy; myclass.com </footer>
     </div>
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
 <!-- jQuery -->
-<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<script src=<c:url value="/plugins/bower_components/jquery/dist/jquery.min.js"/> ></script>
 <!-- Bootstrap Core JavaScript -->
-<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<script src=<c:url value="/bootstrap/dist/js/bootstrap.min.js"/> ></script>
 <!-- Menu Plugin JavaScript -->
-<script src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+<script src=<c:url value="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"/> ></script>
 <!--slimscroll JavaScript -->
-<script src="js/jquery.slimscroll.js"></script>
-<script src="js/jquery.dataTables.js"></script>
+<script src=<c:url value="/js/jquery.slimscroll.js"/>></script>
 <!--Wave Effects -->
-<script src="js/waves.js"></script>
+<script src=<c:url value="/js/waves.js"/> ></script>
 <!-- Custom Theme JavaScript -->
-<script src="js/custom.min.js"></script>
-<script src="<c:url value="/js/user-table.js?version =1"/>"></script>
-<script>
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-</script>
+<script src=<c:url value="/js/custom.min.js"/> ></script>
 </body>
 
 </html>
