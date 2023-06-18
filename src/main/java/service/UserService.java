@@ -39,4 +39,7 @@ public class UserService {
     public List<TaskModel> findTaskByUserId(int userId){
         return taskRepository.findTaskByUserId(userId);
     }
+    public int findNumberOfTaskByStatusId(int statusId){
+        return taskRepository.findNumberOfTaskByStatusId(statusId);
+    }
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,14 +121,24 @@ public class UserTableController extends HttpServlet {
         int userid = Integer.parseInt(req.getParameter("id"));
         UserModel userModel = userService.findById(userid);
         if (userModel != null) {
-            req.setAttribute("user", userModel);
             List<TaskModel> taskList = userService.findTaskByUserId(userid);
-            List <StatusModel> statusList = new ArrayList<>();
-            for (int i = 0; i<taskList.size();i++){
+            List<StatusModel> statusList = new ArrayList<>();
+            for (int i = 0; i < taskList.size(); i++) {
                 statusList.add(userService.findStatusById((taskList.get(i)).getStatus_id()));
             }
-            req.setAttribute("statusList",statusList);
-            req.setAttribute("taskList",taskList);
+            DecimalFormat df = new DecimalFormat("#.##");
+            double statusType1 = ((double) userService.findNumberOfTaskByStatusId(1) / taskList.size() * 100);
+            double statusType2 = ((double) userService.findNumberOfTaskByStatusId(2) / taskList.size() * 100);
+            double statusType3 = ((double) userService.findNumberOfTaskByStatusId(3) / taskList.size() * 100);
+            df.format(statusType1);
+            df.format(statusType2);
+            df.format(statusType3);
+            req.setAttribute("statusType1", statusType1);
+            req.setAttribute("statusType2", statusType2);
+            req.setAttribute("statusType3", statusType3);
+            req.setAttribute("user", userModel);
+            req.setAttribute("statusList", statusList);
+            req.setAttribute("taskList", taskList);
         }
         req.getRequestDispatcher("/user-details.jsp").forward(req, resp);
     }

@@ -47,4 +47,35 @@ public class TaskRepository {
             }
         }return list;
     }
+
+    public int findNumberOfTaskByStatusId(int id){
+        Connection connection = null;
+        List<TaskModel> list = new ArrayList<>();
+        int count=0;
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "SELECT * From tasks t WHERE t.status_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id);
+
+            ResultSet resultSet = statement.executeQuery();
+            //Lấy giá trị của cột chỉ định lưu vào đối tượng
+            while(resultSet.next()) {
+                TaskModel taskModel = new TaskModel();
+                list.add(taskModel);
+                count++;
+            }
+
+        }catch (Exception e){
+            System.out.println("Error findNumberOfTaskByStatusId : " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Lỗi đóng kết nối findNumberOfTaskByStatusId : " + e.getMessage());
+                }
+            }
+        }return count;
+    }
 }
