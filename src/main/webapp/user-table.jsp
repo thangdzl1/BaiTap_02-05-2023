@@ -163,10 +163,10 @@
                                         <td>${listRole.get(item.getRole_id()-1).getRole_desc()}</td>
                                         <td>
                                             <a href="<c:url value="/user-table/adjust"/> " userid="${item.getId()}"
-                                                  class="btn btn-sm btn-primary btn-adjust-user">Sửa</a>
+                                                  class="btn btn-sm btn-primary">Sửa</a>
                                             <span href="#" userid="${item.getId()}"
                                                   class="btn btn-sm btn-danger btn-delete-user">Xóa</span>
-                                            <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
+                                            <a href="<c:url value="/user-table/details?id=${item.getId()}"/>" class="btn btn-sm btn-info">Xem</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

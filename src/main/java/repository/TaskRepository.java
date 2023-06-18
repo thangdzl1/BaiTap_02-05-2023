@@ -8,22 +8,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskRepository {
-    public TaskModel findTaskById(int id){
+    public List<TaskModel> findTaskByUserId(int id){
         Connection connection = null;
-        TaskModel taskModel = new TaskModel();
+        List<TaskModel> list = new ArrayList<>();
         try {
             connection = MysqlConfig.getConnection();
-            String sql = "SELECT *FROM tasks t WHERE t.id = ?";
+            String sql = "SELECT * From tasks t WHERE t.user_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,id);
 
             ResultSet resultSet = statement.executeQuery();
             //Lấy giá trị của cột chỉ định lưu vào đối tượng
-            if(resultSet.next()) {
+            while(resultSet.next()) {
+                TaskModel taskModel = new TaskModel();
                 taskModel.setId(resultSet.getInt("id"));
                 taskModel.setName(resultSet.getString("name"));
                 taskModel.setStart_date(resultSet.getString("start_date"));
@@ -31,18 +32,50 @@ public class TaskRepository {
                 taskModel.setJob_id(resultSet.getInt("job_id"));
                 taskModel.setUser_id(resultSet.getInt("user_id"));
                 taskModel.setStatus_id(resultSet.getInt("status_id"));
+                list.add(taskModel);
             }
 
         }catch (Exception e){
-            System.out.println("Error findTaskById : " + e.getMessage());
+            System.out.println("Error findTaskByUserId : " + e.getMessage());
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
-                    System.out.println("Lỗi đóng kết nối findTaskById : " + e.getMessage());
+                    System.out.println("Lỗi đóng kết nối findTaskByUserId : " + e.getMessage());
                 }
             }
-        }return taskModel;
+        }return list;
+    }
+
+    public int findNumberOfTaskByStatusId(int id){
+        Connection connection = null;
+        List<TaskModel> list = new ArrayList<>();
+        int count=0;
+        try {
+            connection = MysqlConfig.getConnection();
+            String sql = "SELECT * From tasks t WHERE t.status_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id);
+
+            ResultSet resultSet = statement.executeQuery();
+            //Lấy giá trị của cột chỉ định lưu vào đối tượng
+            while(resultSet.next()) {
+                TaskModel taskModel = new TaskModel();
+                list.add(taskModel);
+                count++;
+            }
+
+        }catch (Exception e){
+            System.out.println("Error findNumberOfTaskByStatusId : " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    System.out.println("Lỗi đóng kết nối findNumberOfTaskByStatusId : " + e.getMessage());
+                }
+            }
+        }return count;
     }
 }

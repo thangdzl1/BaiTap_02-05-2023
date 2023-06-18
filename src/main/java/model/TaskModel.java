@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 
 public class TaskModel {
     private int id, user_id, job_id, status_id;

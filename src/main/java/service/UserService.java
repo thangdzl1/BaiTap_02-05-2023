@@ -1,15 +1,16 @@
 package service;
 
-import model.RoleModel;
-import model.UserModel;
-import repository.RoleRepository;
-import repository.UserRepository;
+import model.*;
+import repository.*;
 
 import java.util.List;
 
 public class UserService {
     private UserRepository userRepository = new UserRepository();
     private RoleRepository roleRepository = new RoleRepository();
+    private StatusRepository statusRepository = new StatusRepository();
+    private JobsRepository jobsRepository = new JobsRepository();
+    private TaskRepository taskRepository = new TaskRepository();
 
     public List<UserModel> getAllUser(){
         return userRepository.findAllUser();
@@ -28,5 +29,17 @@ public class UserService {
     }
     public UserModel findById(int id){
         return userRepository.findUserById(id);
+    }
+    public StatusModel findStatusById(int statusId){
+        return statusRepository.findStatusById(statusId);
+    }
+    public JobsModel findJobsById(int jobId){
+        return jobsRepository.findJobsById(jobId);
+    }
+    public List<TaskModel> findTaskByUserId(int userId){
+        return taskRepository.findTaskByUserId(userId);
+    }
+    public int findNumberOfTaskByStatusId(int statusId){
+        return taskRepository.findNumberOfTaskByStatusId(statusId);
     }
 }
