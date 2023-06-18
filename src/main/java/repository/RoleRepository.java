@@ -26,7 +26,6 @@ public class RoleRepository {
                 roleModel.setRole_id(resultSet.getInt("id"));
                 roleModel.setRole_name(resultSet.getString("name"));
                 roleModel.setRole_desc(resultSet.getString("description"));
-
                 roleModels.add(roleModel);
             }
         }catch (Exception e){

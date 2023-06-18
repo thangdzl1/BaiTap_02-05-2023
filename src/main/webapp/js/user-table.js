@@ -17,17 +17,17 @@ $(document).ready(function () {
                 console.log("Ket qua" , results);
             });
     })
-    // $(".btn-adjust-user").click(function () {
-    //     var id = $(this).attr("userid")
-    //     var This = $(this)
-    //
-    //     $.ajax({
-    //         method: "GET",
-    //         url: "http://localhost:8080/demoservlet/user-table/adjust?id=" + id,
-    //         //data: { name: "John", location: "Boston" }
-    //     })
-    //         .done(function (results) {
-    //             console.log("Ket qua" , results);
-    //         });
-    // })
+    $(".btn-details-user").click(function () {
+        var id = $(this).attr("userid")
+        alert(id)
+
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/demoservlet/user-table/details?id=" + id,
+            //data: { name: "John", location: "Boston" }
+        })
+            .done(function (results) {
+                console.log("Ket qua" , results);
+            });
+    })
 })
